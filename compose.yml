@@ -1,0 +1,26 @@
+services:
+  bzv2:
+    container_name: bzv2
+    image: python:3.11.10
+    restart: always
+    volumes:
+      - ./code/:/app/code/
+      - ./betfair-init/:/app/betfair-init/ 
+      - ./requirements.txt:/app/requirements.txt
+      - ./perro_loko.db:/app/perro_loko.db
+    environment:
+      - TZ=America/Sao_Paulo
+      # betfair files path
+      - CRT_DIR=/app/betfair-init/client-2048.crt
+      - KEY_DIR=/app/betfair-init/client-2048.key
+      # to auth... (remember to use a .env file)
+      - BETFAIR_USER=${BETFAIR_USER}
+      - BETFAIR_PASSWORD=${BETFAIR_PASSWORD}
+      # app key valid to all accounts
+      - APP_KEY=gBMF1zhAoNgJIbxw
+      # set your db conn or use default
+      - DATABASE_URI=sqlite:///perro_loko.db
+      # set telegram envs
+      - DISCORD_TOKEN_PROD=${DISCORD_TOKEN_PROD}
+      - CHANNEL_ID=${CHANNEL_ID}
+    command: bash -c "cd app && pip install -r /app/requirements.txt && python /app/code/main.py"
