@@ -204,7 +204,12 @@ def procurar_jogos_perro_loko():
     if 'minuto_aproximado' in df.columns:
         df.pop('minuto_aproximado')
 
-    df_log = df[['name', 'placar', 'tempo', 'status', 'mercado', 'market_id', 'betDelay', 'totalMatched', 'gap', 'odd_back_under']]
+    colunas_log = ['name', 'placar', 'tempo', 'status', 'mercado', 'market_id', 'betDelay', 'totalMatched', 'gap', 'odd_back_under']
+    for col in colunas_log:
+        if col not in df.columns:
+            return logging.error('Não encontrou a coluna: %s', col)
+
+    df_log = df[colunas_log]
     df_log = df_log[df_log["tempo"] >= 84]
     if df_log.empty == False:
         logging.info(df_log.to_string(index=False))
