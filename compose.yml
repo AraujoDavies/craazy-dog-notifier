@@ -1,6 +1,6 @@
 services:
-  bzv2:
-    container_name: bzv2
+  perro_loko:
+    container_name: perro_loko
     image: python:3.11.10
     restart: always
     volumes:
