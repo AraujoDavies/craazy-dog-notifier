@@ -111,6 +111,9 @@ def procurar_jogos_perro_loko():
         
         df.loc[event_id, "mercado"] = mercado
 
+    if 'mercado' not in df.columns:
+        return logging.warning('Não coletou estatísticas!')
+
     df = df[~df['mercado'].isna()] # remove mercados nulos
     for market in df['mercado'].unique():
         event_ids = str(list(df[df['mercado'] == market].index)).replace("'", '"')
