@@ -1,9 +1,9 @@
 import discord
 import asyncio
 import os
-import logging
-from db import TblPerroLoko
-from perro_loko import procurar_jogos_perro_loko, engine
+# import logging
+from db import TblPerroLoko, engine
+# from perro_loko import procurar_jogos_perro_loko
 from sqlalchemy import select, update
 
 from dotenv import load_dotenv
@@ -23,12 +23,12 @@ async def on_ready():
     await log_channel.send('PERRO LOKO ON!')
 
     while True:
-        try:
-            procurar_jogos_perro_loko()
-        except Exception as error:
-            logging.error('msg -> %s', str(error))
-            await log_channel.send('PERRO LOKO ERROR!')
-            await asyncio.sleep(30)
+        # try:
+        #     procurar_jogos_perro_loko()
+        # except Exception as error:
+        #     logging.error('msg -> %s', str(error))
+        #     await log_channel.send('PERRO LOKO ERROR!')
+        #     await asyncio.sleep(30)
 
         stmt = select(TblPerroLoko.name, TblPerroLoko.placar, TblPerroLoko.odd_back_under, TblPerroLoko.market_id, TblPerroLoko.mercado, TblPerroLoko.tempo).where(TblPerroLoko.sinal_enviado == False)
         with engine.begin() as conn:

@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 import logging
 from db import engine
-
+import time
 
 load_dotenv()
 ignorar_events = [] # add o id dos eventos que sairam do padrão ou estao no banco
@@ -250,4 +250,6 @@ def procurar_jogos_perro_loko():
 
 
 if __name__ == '__main__':
-    procurar_jogos_perro_loko()
+    while True:
+        procurar_jogos_perro_loko()
+        time.sleep(30)
