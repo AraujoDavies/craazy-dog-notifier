@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import os
+import logging
 from db import TblPerroLoko
 from perro_loko import procurar_jogos_perro_loko, engine
 from sqlalchemy import select, update
@@ -17,8 +18,17 @@ TOKEN = os.getenv('DISCORD_TOKEN_PROD')
 
 @client.event
 async def on_ready():
+    dev_channel = client.get_channel(1458182138053787924)
+    await dev_channel.send('PERRO LOKO ON!')
+
     while True:
-        procurar_jogos_perro_loko()
+        try:
+            procurar_jogos_perro_loko()
+        except Exception as error:
+            logging.error('msg -> %s', str(error))
+            await dev_channel.send('PERRO LOKO ERROR!')
+            await asyncio.sleep(30)
+
         stmt = select(TblPerroLoko.name, TblPerroLoko.placar, TblPerroLoko.odd_back_under, TblPerroLoko.market_id, TblPerroLoko.mercado, TblPerroLoko.tempo).where(TblPerroLoko.sinal_enviado == False)
         with engine.begin() as conn:
             sinais = conn.execute(stmt).fetchall()
