@@ -158,6 +158,10 @@ def procurar_jogos_perro_loko():
 
 
     # coletando GAP, ODDS, valor correspondido, etc do MO
+    if 'market_id' not in df.columns:
+        df_str = df_log.to_string(index=False)
+        return logging.warning('DF não possui a coluna: "market_id": %s', df_str)
+
     market_ids = str(list(df[~df['market_id'].isna()]['market_id'])).replace("'", '"')
     rpc = """{
         "jsonrpc": "2.0", 
