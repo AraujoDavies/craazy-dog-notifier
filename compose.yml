@@ -23,4 +23,5 @@ services:
       # set telegram envs
       - DISCORD_TOKEN_PROD=${DISCORD_TOKEN_PROD}
       - CHANNEL_ID=${CHANNEL_ID}
+      - CHANNEL_ID_LOG=${CHANNEL_ID_LOG}
     command: bash -c "cd app && pip install -r /app/requirements.txt && python /app/code/main.py"
