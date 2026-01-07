@@ -25,3 +25,15 @@ up:
 
 logs:
 	docker compose logs --follow
+
+.PHONY: format
+format:
+	poetry run isort .
+	poetry run black .
+
+.PHONY: commit
+commit: 
+	@make format
+	git add -A
+	git commit -m "${m}"
+# make commit m="first commit"
