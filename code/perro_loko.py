@@ -248,7 +248,7 @@ def procurar_jogos_perro_loko():
     open = df["status"] == "OPEN"
     five_sec = df["betDelay"] == 5  # 5 seg
     gap = df["gap"] < GAP  # 0.04
-    tempo = (df["tempo"] >= 87) & (df["tempo"] <= 88)
+    tempo = (df["tempo"] >= 87) & (df["tempo"] <= 91)
     odd_back_under = df["odd_back_under"] > ODD_UNDER_AOS_88
     liquidez = df["totalMatched"] > LIQUIDEZ
 
